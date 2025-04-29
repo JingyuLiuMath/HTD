@@ -7,7 +7,7 @@ rng(1);
 n = 128;
 n_leaf = 16;
 r = 8;
-ad = "weak";
+ad = "strong";
 % -------------------------------------------------------------------------
 
 
@@ -17,7 +17,9 @@ N = n^2;
 min_points = n_leaf^2;
 h = 1 / n;
 a_fun = @(xx) zeros(size(xx, 1), 1);
-k_fun = @(xx, yy) Gaussian(xx, yy, sqrt(2));
+s_fun = @(xx1, xx2) -reallog(sqrt(xx1.^2 + xx2.^2)) / (2 * pi);
+sval = integral2(s_fun, -h / 2, h / 2, -h / 2, h / 2) / (h * h);
+k_fun = @(xx, yy) SLP2D(xx, yy, sval);
 % -------------------------------------------------------------------------
 
 
@@ -45,7 +47,7 @@ construct_time = tic;
 H.Construct_IE(T, T, ad, a_fun, k_fun, r);
 construct_time = toc(construct_time);
 fprintf("construct time: %e\n", construct_time);
-% H.PlotHMat();
+H.PlotHMat();
 % -------------------------------------------------------------------------
 
 

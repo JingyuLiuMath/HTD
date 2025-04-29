@@ -29,10 +29,10 @@ elseif T_row.leaf_ == 1 || T_col.leaf_ == 1
 
     N = T_row.B_.global_size_;
     if T_row.B_ == T_col.B_
-        D = diag(a_fun(T_col.Points())) ...
-            + k_fun(T_row.Points(), T_col.Points()) / N;
+        D = diag(a_fun(T_col.B_.Points())) ...
+            + k_fun(T_row.B_.Points(), T_col.B_.Points()) / N;
     else
-        D = k_fun(T_row.Points(), T_col.Points()) / N;
+        D = k_fun(T_row.B_.Points(), T_col.B_.Points()) / N;
     end
     H.D_ = reshape(D, [H.r1size_, H.r2size_, H.c1size_, H.c2size_]);
 else
