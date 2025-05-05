@@ -7,14 +7,14 @@ fprintf("H3DS HTLR\n");
 n_list = [32, 64, 128, 160, 256];
 num_n = length(n_list);
 
-n_leaf = 4;
+n_leaf = 5;
 min_points = n_leaf^3;
 r = 4;
 ad = "strong";
 
 for i = 1 : num_n
     n = n_list(i);
-    disp("current n: " + n)
+    fprintf("current n: %d\n", n);
 
     N = n^3;
     h = 1 / n;

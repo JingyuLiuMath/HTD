@@ -14,7 +14,7 @@ ad = "weak";
 
 for i = 1 : num_n
     n = n_list(i);
-    disp("current n: " + n)
+    fprintf("current n: %d\n", n);
 
     N = n^3;
     h = 1 / n;

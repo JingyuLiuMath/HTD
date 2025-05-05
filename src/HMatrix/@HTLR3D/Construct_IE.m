@@ -36,7 +36,7 @@ elseif T_row.leaf_ == 1 || T_col.leaf_ == 1
     end
     H.D_ = reshape(D, [...
         H.r1size_, H.r2size_, H.r3size_, ...
-        H.c1size_, H.c2size_, H.r2size_]);
+        H.c1size_, H.c2size_, H.c3size_]);
 else
     H.leaf_ = 0;
     H.ch_ = cell(2, 2, 2, 2, 2, 2);
