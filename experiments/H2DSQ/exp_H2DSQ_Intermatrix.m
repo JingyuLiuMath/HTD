@@ -9,7 +9,7 @@ warning off;
 n_list = [64, 128, 256, 512];
 num_n = length(n_list);
 
-rho_list = [2, 3, 4, 8];
+rho_list = [2, 3, 4];
 num_rho = length(rho_list);
 
 %% Loop.

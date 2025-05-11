@@ -40,6 +40,8 @@ for i = 1 : num_n
     load(file_name);
 
     u_ten = reshape(u_ex, [n, n, n]);
+    f_ten = H.HMultV(u_ten);
+    f_ten = H.HMultV(u_ten);
     hmultv_time = tic;
     f_ten = H.HMultV(u_ten);
     hmultv_time = toc(hmultv_time);

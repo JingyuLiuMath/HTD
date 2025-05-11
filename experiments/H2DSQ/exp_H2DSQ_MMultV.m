@@ -4,7 +4,7 @@ close all;
 
 fprintf("H2DSQ MMV\n");
 
-n_list = [64, 128, 256, 512];
+n_list = [256, 512];
 num_n = length(n_list);
 
 block_size = 65536;
@@ -25,22 +25,19 @@ for i = 1 : num_n
 
     f_qu = a_fun(x_qu) .* u_qu;
 
-    % L_qu = k_fun(x_qu, x_qu);
-    % L_qu = L_qu .* area_qu.';
     diag_L_qu = zeros(N_qu, 1);
     for j = 1 : N_qu
         Lj_fun = @(y1, y2) -log(sqrt(...
             (x_qu(j, 1) - y1).^2 + (x_qu(j, 2) - y2).^2)) / (2 * pi);
         diag_L_qu(j) = TriangularIntegral(Lj_fun, v1(j, :), v2(j, :), v3(j, :));
     end
-    % L_qu = tril(L_qu, -1) + triu(L_qu, 1) + diag(diag_L_qu);
 
     num_block = ceil(N_qu / block_size);
     roff = 0;
     for rit = 1 : num_block
         rind = (roff + 1) : min(roff + block_size, N_qu);
         coff = 0;
-        for cit = 1 : (roff - 1)
+        for cit = 1 : (rit - 1)
             cind = (coff + 1) : min(coff + block_size, N_qu);
             tmp_mat = k_fun(x_qu(rind, :), x_qu(cind, :)) .* area_qu(cind).';
             f_qu(rind, :) = f_qu(rind, :) + tmp_mat * u_qu(cind, :);
@@ -53,7 +50,7 @@ for i = 1 : num_n
         f_qu(rind, :) = f_qu(rind, :) + tmp_mat * u_qu(cind, :);
         coff = coff + block_size;
 
-        for cit = (roff + 1) : num_block
+        for cit = (rit + 1) : num_block
             cind = (coff + 1) : min(coff + block_size, N_qu);
             tmp_mat = k_fun(x_qu(rind, :), x_qu(cind, :)) .* area_qu(cind).';
             f_qu(rind, :) = f_qu(rind, :) + tmp_mat * u_qu(cind, :);

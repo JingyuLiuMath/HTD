@@ -42,6 +42,8 @@ for i = 1 : num_n
     load(file_name);
 
     u = u_ex(q, :);
+    f = H.HMultV(u);
+    f = H.HMultV(u);
     hmultv_time = tic;
     f = H.HMultV(u);
     hmultv_time = toc(hmultv_time);

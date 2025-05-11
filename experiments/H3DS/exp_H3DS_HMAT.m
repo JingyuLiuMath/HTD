@@ -4,7 +4,7 @@ rng(1);
 
 fprintf("H3DS HMAT\n");
 
-n_list = [32, 64, 128, 160, 256];
+n_list = [32, 64, 128, 160];
 num_n = length(n_list);
 
 n_leaf = 5;
@@ -77,6 +77,8 @@ for i = 1 : num_n
     load(file_name);
 
     u = u_ex(q, :);
+    f = H.HMultV(u);
+    f = H.HMultV(u);
     hmultv_time = tic;
     f = H.HMultV(u);
     hmultv_time = toc(hmultv_time);

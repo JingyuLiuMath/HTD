@@ -3,11 +3,11 @@ close all;
 
 fprintf("H2DW Plot\n");
 
-hmat_n_list = [16, 32, 64, 128];
+hmat_n_list = [256, 512, 1024, 2048, 4096];
 num_hmat_n = length(hmat_n_list);
 hmat_N_list = hmat_n_list.^2;
 
-htlr_n_list = [16, 32, 64, 128];
+htlr_n_list = [256, 512, 1024, 2048, 4096, 8192];
 num_htlr_n = length(htlr_n_list);
 htlr_N_list = htlr_n_list.^2;
 
@@ -16,10 +16,16 @@ r = 8;
 hmat_construct_time_list = zeros(num_hmat_n, 1);
 hmat_hmultv_time_list = zeros(num_hmat_n, 1);
 hmat_hmem_list = zeros(num_hmat_n, 1);
+hmat_hmulv_err_list = zeros(num_hmat_n, 1);
+hmat_hmulv_rand_err_list = zeros(num_hmat_n, 1);
+hmat_rand_ind = 1;
 
-htlr_construct_time_list = zeros(num_tlr_n, 1);
+htlr_construct_time_list = zeros(num_htlr_n, 1);
 htlr_hmultv_time_list = zeros(num_htlr_n, 1);
 htlr_hmem_list = zeros(num_htlr_n, 1);
+htlr_hmulv_err_list = zeros(num_htlr_n, 1);
+htlr_hmulv_rand_err_list = zeros(num_htlr_n, 1);
+htlr_rand_ind = 1;
 
 for it_n = 1 : num_hmat_n
     n = hmat_n_list(it_n);
@@ -29,6 +35,11 @@ for it_n = 1 : num_hmat_n
     hmat_construct_time_list(it_n) = construct_time;
     hmat_hmultv_time_list(it_n) = hmultv_time;
     hmat_hmem_list(it_n) = hmat_mem;
+    hmat_hmulv_err_list(it_n) = err;
+    hmat_hmulv_rand_err_list(it_n) = rand_err;
+    if err ~= 0
+        hmat_rand_ind = it_n;
+    end
 end
 
 for it_n = 1 : num_htlr_n
@@ -38,29 +49,104 @@ for it_n = 1 : num_htlr_n
     
     htlr_construct_time_list(it_n) = construct_time;
     htlr_hmultv_time_list(it_n) = hmultv_time;
-    htlr_hmem_list(it_n) = htlr_mem;
+    htlr_hmem_list(it_n) = hmat_mem;
+    htlr_hmulv_err_list(it_n) = err;
+    htlr_hmulv_rand_err_list(it_n) = rand_err;
+    if err ~= 0
+        htlr_rand_ind = it_n;
+    end
 end
 
-% figure();
-% loglog(htlr_N_list, htlr_construct_time_list, ...
-%         "LineWidth", 2, ...
-%         "Marker", "x", ...
-%         "DisplayName", "HTLR");
-% hold on;
-% loglog(hmat_N_list, hmat_construct_time_list, ...
-%         "LineWidth", 2, ...
-%         "Marker", "x", ...
-%         "DisplayName", "HMAT");
-% ref_construct_complexity = N_list .* log2(N_list) .* log2(N_list);
-% ref_construct_complexity = ref_construct_complexity / ref_construct_complexity(1) * construct_time_list(1, 1) / 2;
-% loglog(N_list(2 : end - 1), ref_construct_complexity(2 : end  -1), ...
-%     "LineWidth", 2, ...
-%     "LineStyle", "--", ...
-%     "DisplayName", "N log^2 N");
+hmat_hmem_list = hmat_hmem_list / 1024^3 * 8;
+htlr_hmem_list = htlr_hmem_list / 1024^3 * 8;
+
+figure();
+loglog(htlr_N_list, htlr_construct_time_list, ...
+        "LineWidth", 2, ...
+        "Marker", "x", ...
+        "DisplayName", "HTLR");
+hold on;
+loglog(hmat_N_list, hmat_construct_time_list, ...
+        "LineWidth", 2, ...
+        "Marker", "*", ...
+        "DisplayName", "HMAT");
+ref_construct_complexity = htlr_N_list;
+ref_construct_complexity = ref_construct_complexity / ref_construct_complexity(1) * htlr_construct_time_list(1) / 3;
+loglog(htlr_N_list(2 : end - 1), ref_construct_complexity(2 : end  -1), ...
+    "LineWidth", 2, ...
+    "LineStyle", "--", ...
+    "DisplayName", "N");
 % title("construct time");
-% xlabel("$N$", "Interpreter", "latex");
-% ylabel("$t_{\mathrm{c}}$ (s)", "Interpreter", "latex");
-% legend("Location", "southeast");
-% set(gca, 'FontSize', 18);
-% saveas(gcf, "./figure/RP_construct_time.png", "png");
-% saveas(gcf, "./figure/RP_construct_time.eps", "epsc");
+xlabel("$N$", "Interpreter", "latex");
+ylabel("$t_{\mathrm{c}}$ (s)", "Interpreter", "latex");
+legend("Location", "southeast");
+set(gca, 'FontSize', 18);
+saveas(gcf, "./figure/H2DW_construct_time.png", "png");
+saveas(gcf, "./figure/H2DW_construct_time.eps", "epsc");
+
+figure();
+loglog(htlr_N_list, htlr_hmultv_time_list, ...
+        "LineWidth", 2, ...
+        "Marker", "x", ...
+        "DisplayName", "HTLR");
+hold on;
+loglog(hmat_N_list, hmat_hmultv_time_list, ...
+        "LineWidth", 2, ...
+        "Marker", "*", ...
+        "DisplayName", "HMAT");
+ref_hmultv_complexity = htlr_N_list .* log2(htlr_N_list);
+ref_hmultv_complexity = ref_hmultv_complexity / ref_hmultv_complexity(1) * htlr_hmultv_time_list(1) / 3;
+loglog(htlr_N_list(2 : end - 1), ref_hmultv_complexity(2 : end  -1), ...
+    "LineWidth", 2, ...
+    "LineStyle", "--", ...
+    "DisplayName", "N log N");
+% title("apply time");
+xlabel("$N$", "Interpreter", "latex");
+ylabel("$t_{\mathrm{a}}$ (s)", "Interpreter", "latex");
+legend("Location", "southeast");
+set(gca, 'FontSize', 18);
+saveas(gcf, "./figure/H2DW_hmultv_time.png", "png");
+saveas(gcf, "./figure/H2DW_hmultv_time.eps", "epsc");
+
+figure();
+loglog(htlr_N_list, htlr_hmem_list, ...
+        "LineWidth", 2, ...
+        "Marker", "x", ...
+        "DisplayName", "HTLR");
+hold on;
+loglog(hmat_N_list, hmat_hmem_list, ...
+        "LineWidth", 2, ...
+        "Marker", "*", ...
+        "DisplayName", "HMAT");
+ref_hmem_complexity = htlr_N_list;
+ref_hmem_complexity = ref_hmem_complexity / ref_hmem_complexity(1) * htlr_hmem_list(1) / 2;
+loglog(htlr_N_list(2 : end - 1), ref_hmem_complexity(2 : end  -1), ...
+    "LineWidth", 2, ...
+    "LineStyle", "--", ...
+    "DisplayName", "N");
+% title("memory");
+xlabel("$N$", "Interpreter", "latex");
+ylabel("$m_{\mathrm{h}}$ (GB)", "Interpreter", "latex");
+legend("Location", "southeast");
+set(gca, 'FontSize', 18);
+saveas(gcf, "./figure/H2DW_memory.png", "png");
+saveas(gcf, "./figure/H2DW_memory.eps", "epsc");
+
+
+figure();
+loglog(htlr_N_list, htlr_hmulv_rand_err_list, ...
+        "LineWidth", 2, ...
+        "Marker", "x", ...
+        "DisplayName", "HTLR");
+hold on;
+loglog(hmat_N_list, hmat_hmulv_rand_err_list, ...
+        "LineWidth", 2, ...
+        "Marker", "*", ...
+        "DisplayName", "HMAT");
+% title("relative apply error");
+xlabel("$N$", "Interpreter", "latex");
+ylabel("$e_{\mathrm{a}; \mathrm{r}}$", "Interpreter", "latex");
+legend("Location", "southeast");
+set(gca, 'FontSize', 18);
+saveas(gcf, "./figure/H2DW_err.png", "png");
+saveas(gcf, "./figure/H2DW_err.eps", "epsc");

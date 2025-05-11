@@ -4,7 +4,7 @@ rng(1);
 
 fprintf("H3DS HTLR\n");
 
-n_list = [32, 64, 128, 160, 256];
+n_list = [32, 64, 128, 160];
 num_n = length(n_list);
 
 n_leaf = 5;
@@ -75,6 +75,8 @@ for i = 1 : num_n
     load(file_name);
 
     u_ten = reshape(u_ex, [n, n, n]);
+    f_ten = H.HMultV(u_ten);
+    f_ten = H.HMultV(u_ten);
     hmultv_time = tic;
     f_ten = H.HMultV(u_ten);
     hmultv_time = toc(hmultv_time);
