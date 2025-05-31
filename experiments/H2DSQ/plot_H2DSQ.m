@@ -42,6 +42,6 @@ end
 xlabel("$N$", "Interpreter", "latex");
 ylabel("$e_{\mathrm{a}}$", "Interpreter", "latex");
 legend("Location", "northeast");
-set(gca, 'FontSize', 18);
+set(gca, 'FontSize', 30);
 saveas(gcf, "./figure/H2DSQ_err.png", "png");
 saveas(gcf, "./figure/H2DSQ_err.eps", "epsc");

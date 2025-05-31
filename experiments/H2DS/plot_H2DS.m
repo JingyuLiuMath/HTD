@@ -75,12 +75,12 @@ ref_construct_complexity = ref_construct_complexity / ref_construct_complexity(1
 loglog(htlr_N_list(2 : end - 1), ref_construct_complexity(2 : end  -1), ...
     "LineWidth", 2, ...
     "LineStyle", "--", ...
-    "DisplayName", "N");
+    "DisplayName", "O(N)");
 % title("construct time");
 xlabel("$N$", "Interpreter", "latex");
 ylabel("$t_{\mathrm{c}}$ (s)", "Interpreter", "latex");
 legend("Location", "southeast");
-set(gca, 'FontSize', 18);
+set(gca, 'FontSize', 30);
 saveas(gcf, "./figure/H2DS_construct_time.png", "png");
 saveas(gcf, "./figure/H2DS_construct_time.eps", "epsc");
 
@@ -99,12 +99,12 @@ ref_hmultv_complexity = ref_hmultv_complexity / ref_hmultv_complexity(1) * htlr_
 loglog(htlr_N_list(2 : end - 1), ref_hmultv_complexity(2 : end  -1), ...
     "LineWidth", 2, ...
     "LineStyle", "--", ...
-    "DisplayName", "N log N");
+    "DisplayName", "O(N log N)");
 % title("apply time");
 xlabel("$N$", "Interpreter", "latex");
 ylabel("$t_{\mathrm{a}}$ (s)", "Interpreter", "latex");
 legend("Location", "southeast");
-set(gca, 'FontSize', 18);
+set(gca, 'FontSize', 30);
 saveas(gcf, "./figure/H2DS_hmultv_time.png", "png");
 saveas(gcf, "./figure/H2DS_hmultv_time.eps", "epsc");
 
@@ -123,12 +123,12 @@ ref_hmem_complexity = ref_hmem_complexity / ref_hmem_complexity(1) * htlr_hmem_l
 loglog(htlr_N_list(2 : end - 1), ref_hmem_complexity(2 : end  -1), ...
     "LineWidth", 2, ...
     "LineStyle", "--", ...
-    "DisplayName", "N");
+    "DisplayName", "O(N)");
 % title("memory");
 xlabel("$N$", "Interpreter", "latex");
 ylabel("$m_{\mathrm{h}}$ (GB)", "Interpreter", "latex");
 legend("Location", "southeast");
-set(gca, 'FontSize', 18);
+set(gca, 'FontSize', 30);
 saveas(gcf, "./figure/H2DS_memory.png", "png");
 saveas(gcf, "./figure/H2DS_memory.eps", "epsc");
 
@@ -147,6 +147,6 @@ loglog(hmat_N_list, hmat_hmulv_rand_err_list, ...
 xlabel("$N$", "Interpreter", "latex");
 ylabel("$e_{\mathrm{a}; \mathrm{r}}$", "Interpreter", "latex");
 legend("Location", "southeast");
-set(gca, 'FontSize', 18);
+set(gca, 'FontSize', 30);
 saveas(gcf, "./figure/H2DS_err.png", "png");
 saveas(gcf, "./figure/H2DS_err.eps", "epsc");

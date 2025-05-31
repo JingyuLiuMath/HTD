@@ -76,12 +76,12 @@ ref_construct_complexity = ref_construct_complexity / ref_construct_complexity(2
 loglog(tmp_N_list, ref_construct_complexity, ...
     "LineWidth", 2, ...
     "LineStyle", "--", ...
-    "DisplayName", "N");
+    "DisplayName", "O(N)");
 % title("construct time");
 xlabel("$N$", "Interpreter", "latex");
 ylabel("$t_{\mathrm{c}}$ (s)", "Interpreter", "latex");
 legend("Location", "southeast");
-set(gca, 'FontSize', 18);
+set(gca, 'FontSize', 30);
 saveas(gcf, "./figure/H3DS_construct_time.png", "png");
 saveas(gcf, "./figure/H3DS_construct_time.eps", "epsc");
 
@@ -101,12 +101,12 @@ ref_hmultv_complexity = ref_hmultv_complexity / ref_hmultv_complexity(2) * htlr_
 loglog(tmp_N_list, ref_hmultv_complexity, ...
     "LineWidth", 2, ...
     "LineStyle", "--", ...
-    "DisplayName", "N log N");
+    "DisplayName", "O(N log N)");
 % title("apply time");
 xlabel("$N$", "Interpreter", "latex");
 ylabel("$t_{\mathrm{a}}$ (s)", "Interpreter", "latex");
 legend("Location", "southeast");
-set(gca, 'FontSize', 18);
+set(gca, 'FontSize', 30);
 saveas(gcf, "./figure/H3DS_hmultv_time.png", "png");
 saveas(gcf, "./figure/H3DS_hmultv_time.eps", "epsc");
 
@@ -126,12 +126,12 @@ ref_hmem_complexity = ref_hmem_complexity / ref_hmem_complexity(2) * htlr_hmem_l
 loglog(tmp_N_list, ref_hmem_complexity, ...
         "LineWidth", 2, ...
         "LineStyle", "--", ...
-        "DisplayName", "N");
+        "DisplayName", "O(N)");
 % title("memory");
 xlabel("$N$", "Interpreter", "latex");
 ylabel("$m_{\mathrm{h}}$ (GB)", "Interpreter", "latex");
 legend("Location", "southeast");
-set(gca, 'FontSize', 18);
+set(gca, 'FontSize', 30);
 saveas(gcf, "./figure/H3DS_memory.png", "png");
 saveas(gcf, "./figure/H3DS_memory.eps", "epsc");
 
@@ -150,6 +150,6 @@ loglog(hmat_N_list, hmat_hmulv_rand_err_list, ...
 xlabel("$N$", "Interpreter", "latex");
 ylabel("$e_{\mathrm{a}; \mathrm{r}}$", "Interpreter", "latex");
 legend("Location", "southeast");
-set(gca, 'FontSize', 18);
+set(gca, 'FontSize', 30);
 saveas(gcf, "./figure/H3DS_err.png", "png");
 saveas(gcf, "./figure/H3DS_err.eps", "epsc");
