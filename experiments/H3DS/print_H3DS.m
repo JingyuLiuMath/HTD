@@ -67,13 +67,13 @@ for it_n = 1 : num_htlr_n
     fprintf("& %d ", r);
     fprintf("& %.1e ", htlr_construct_time_list(it_n));
     if it_n <= num_hmat_n
-        fprintf("& %.1fx ", hmat_construct_time_list(it_n) / htlr_construct_time_list(it_n));
+        fprintf("& \\(%.1f  \\times\\) ", hmat_construct_time_list(it_n) / htlr_construct_time_list(it_n));
     else
         fprintf("& - ");
     end
     fprintf("& %.1e ", htlr_hmem_list(it_n));
     if it_n <= num_hmat_n
-        fprintf("& %.1fx ", hmat_hmem_list(it_n) / htlr_hmem_list(it_n));
+        fprintf("& \\(%.1f  \\times\\) ", hmat_hmem_list(it_n) / htlr_hmem_list(it_n));
     else
         fprintf("& - ");
     end
