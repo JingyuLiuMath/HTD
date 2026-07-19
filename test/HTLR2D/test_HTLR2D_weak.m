@@ -7,6 +7,7 @@ rng(1);
 n = 128;
 n_leaf = 16;
 r = 8;
+tol = 1e-10;
 ad = "weak";
 % -------------------------------------------------------------------------
 
@@ -42,7 +43,7 @@ q = T.q_;
 % Construction.
 H = HTLR2D(B.I1_.size_, B.I2_.size_, B.I1_.size_, B.I2_.size_);
 construct_time = tic;
-H.Construct_IE(T, T, ad, a_fun, k_fun, r);
+H.Construct_IE(T, T, ad, a_fun, k_fun, r, tol);
 construct_time = toc(construct_time);
 fprintf("construct time: %e\n", construct_time);
 % -------------------------------------------------------------------------

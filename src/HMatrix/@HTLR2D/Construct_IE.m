@@ -1,4 +1,4 @@
-function Construct_IE(H, T_row, T_col, ad, a_fun, k_fun, r)
+function Construct_IE(H, T_row, T_col, ad, a_fun, k_fun, r, tol)
 
 arguments (Input)
     H HTLR2D;
@@ -8,6 +8,7 @@ arguments (Input)
     a_fun function_handle;
     k_fun function_handle;
     r (1, 1) double;  % rank in each direction.
+    tol (1, 1) double;
 end
 
 if Admissible2D(T_row.B_, T_col.B_, ad)
@@ -23,6 +24,13 @@ if Admissible2D(T_row.B_, T_col.B_, ad)
         T_row.B_, T_col.B_, ...
         k_fun, r);
     H.G_ = G / N;
+
+    % Recompression.
+    [H.G_, U] = STHOSVD(H.G_, tol);
+    H.U1_ = H.U1_ * U{1};
+    H.U2_ = H.U2_ * U{2};
+    H.V1_ = H.V1_ * U{3};
+    H.V2_ = H.V2_ * U{4};
 elseif T_row.leaf_ == 1 || T_col.leaf_ == 1
     H.leaf_ = 1;
     H.ad_ = 0;
@@ -50,7 +58,7 @@ else
                         H.level_ + 1);
                     H.ch_{rit1, rit2, cit1, cit2}.Construct_IE(...
                         T_row.ch_{rit1, rit2}, T_col.ch_{cit1, cit2}, ...
-                        ad, a_fun, k_fun, r);
+                        ad, a_fun, k_fun, r, tol);
                 end
             end
         end

@@ -21,11 +21,11 @@ if H.leaf_ == 0
     end
 else
     if H.ad_ == 0
-        mem = numel(H.D_);
+        mem = byte_size(H.D_);
     else
-        mem = numel(H.U1_) + numel(H.U2_) ...
-            + numel(H.G_) ...
-            + numel(H.V1_) + numel(H.V2_);
+        mem = byte_size(H.U1_) + byte_size(H.U2_) ...
+            + byte_size(H.G_) ...
+            + byte_size(H.V1_) + byte_size(H.V2_);
     end
 end
 

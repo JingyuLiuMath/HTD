@@ -1,4 +1,4 @@
-function Construct_IE(H, T_row, T_col, ad, a_fun, k_fun, r)
+function Construct_IE(H, T_row, T_col, ad, a_fun, k_fun, r, tol)
 
 arguments (Input)
     H HMAT2D;
@@ -8,6 +8,7 @@ arguments (Input)
     a_fun function_handle;
     k_fun function_handle;
     r (1, 1) double;  % rank in each direction.
+    tol (1, 1) double;
 end
 
 if Admissible2D(T_row.B_, T_col.B_, ad)
@@ -25,6 +26,12 @@ if Admissible2D(T_row.B_, T_col.B_, ad)
     H.G_ = G / N;
     H.U_ = U(T_row.q_, :);
     H.V_ = V(T_col.q_, :);
+
+    % Recompression.
+    [UG, S, VG] = MySVDTrunc(H.G_, tol);
+    H.U_ = H.U_ * UG;
+    H.G_ = S;
+    H.V_ = H.V_ * VG;
 elseif T_row.leaf_ == 1 || T_col.leaf_ == 1
     H.leaf_ = 1;
     H.ad_ = 0;
@@ -50,7 +57,7 @@ else
                         H.level_ + 1);
                     H.ch_{rit1, rit2, cit1, cit2}.Construct_IE(...
                         T_row.ch_{rit1, rit2}, T_col.ch_{cit1, cit2}, ...
-                        ad, a_fun, k_fun, r);
+                        ad, a_fun, k_fun, r, tol);
                 end
             end
         end

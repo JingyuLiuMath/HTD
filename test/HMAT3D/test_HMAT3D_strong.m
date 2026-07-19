@@ -7,6 +7,7 @@ rng(1);
 n = 16;
 n_leaf = 4;
 r_or_tol = 2;
+tol = 1e-10;
 ad = "strong";
 % -------------------------------------------------------------------------
 
@@ -78,7 +79,7 @@ q = T.q_;
 % Construction.
 H = HMAT3D(B.size_, B.size_);
 construct_time = tic;
-H.Construct_IE(T, T, ad, a_fun, k_fun, r_or_tol);
+H.Construct_IE(T, T, ad, a_fun, k_fun, r_or_tol, tol);
 construct_time = toc(construct_time);
 fprintf("construct time: %e\n", construct_time);
 H.PlotHMat();
