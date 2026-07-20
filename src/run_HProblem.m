@@ -1,10 +1,12 @@
-function result = run_HProblem(n, dim, kernel_type, nsample, n_sample_threshold, num_rhs)
+function result = run_HProblem(...
+        n, dim, kernel_type, kappa, nsample, n_sample_threshold, num_rhs)
 % run_HProblem forms the sampled reference vector for one problem size.
 
 arguments (Input)
     n (1, 1) double;
     dim (1, 1) double;
     kernel_type (1, 1) string;
+    kappa (1, 1) double;
     nsample (1, 1) double;
     n_sample_threshold (1, 1) double
     num_rhs (1, 1) double
@@ -17,7 +19,7 @@ end
 fprintf("current n: %d\n", n);
 
 N = n^dim;
-[a_fun, k_fun] = ExperimentKernel(n, dim, kernel_type);
+[a_fun, k_fun] = ExperimentKernel(n, dim, kernel_type, kappa);
 
 B = ExperimentBox(n, dim);
 x = B.Points();

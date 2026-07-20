@@ -10,7 +10,8 @@ arguments (Output)
     f (:, :) double;
 end
 
-f = 1 ./ pdist2(x, y) / (4 * pi);
-f(f == Inf) = sval;
+dist_x_y = pdist2(x, y);
+f = 1 ./ dist_x_y  / (4 * pi);
+f(dist_x_y == 0) = sval;
 
 end

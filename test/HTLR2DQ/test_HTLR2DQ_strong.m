@@ -21,10 +21,7 @@ N_uni = n_uni^2;
 area_uni = h_uni^2;
 
 a_fun = @(xx) zeros(size(xx, 1), 1);
-s_fun = @(xx1, xx2) -reallog(sqrt(xx1.^2 + xx2.^2)) / (2 * pi);
-sval = integral2(s_fun, ...
-    -h_uni / 2, h_uni / 2, ...
-    -h_uni / 2, h_uni / 2) / area_uni;
+sval = SLP2DSelfValue(h_uni);
 k_fun = @(xx, yy) SLP2D(xx, yy, sval);
 
 min_points = n_leaf^2;

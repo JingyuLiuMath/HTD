@@ -10,7 +10,7 @@ if ispc
     n_sample_threshold = 64;
 
     n_leaf = 8;
-    r = 4;
+    r = 10;
 elseif isunix
     n_list = [256, 512, 1024, 2048, 4096];
     nsample = 256;
@@ -22,7 +22,8 @@ end
 num_n = length(n_list);
 
 dim = 2;
-kernel = "SLP";
+kernel = "Helm";
+kappa = 10;
 num_rhs = 30;
 min_points = n_leaf^2;
 ad = "strong";

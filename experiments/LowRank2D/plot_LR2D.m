@@ -5,7 +5,7 @@ rng(1);
 ad_list = ["NBR", "WS"];
 num_ad = length(ad_list);
 
-ker_list = ["Gaussian", "SLP"];
+ker_list = ["Gaussian", "SLP", "Helm"];
 num_ker = length(ker_list);
 
 r_list = 1 : 16;
@@ -50,7 +50,7 @@ for it_ad = 1 : num_ad
         end
         xlabel("p");
         xlim([r_list(1), r_list(end)]);
-        ylim([1e-15, 1]);
+        ylim([1e-15, 1e1]);
         set(gca, 'FontSize', 22);
         figure_name = "./figure/" + ad + "_" + ker + "_2D.eps";
         saveas(gcf, figure_name, "epsc");

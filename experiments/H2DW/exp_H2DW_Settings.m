@@ -23,6 +23,7 @@ num_n = length(n_list);
 
 dim = 2;
 kernel = "Gaussian";
+kappa = 0;
 num_rhs = 30;
 min_points = n_leaf^2;
 ad = "weak";

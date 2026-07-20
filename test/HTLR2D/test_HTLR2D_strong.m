@@ -18,8 +18,7 @@ N = n^2;
 min_points = n_leaf^2;
 h = 1 / n;
 a_fun = @(xx) zeros(size(xx, 1), 1);
-s_fun = @(xx1, xx2) -reallog(sqrt(xx1.^2 + xx2.^2)) / (2 * pi);
-sval = integral2(s_fun, -h / 2, h / 2, -h / 2, h / 2) / (h * h);
+sval = SLP2DSelfValue(h);
 k_fun = @(xx, yy) SLP2D(xx, yy, sval);
 % -------------------------------------------------------------------------
 

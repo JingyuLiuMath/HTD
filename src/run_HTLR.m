@@ -1,11 +1,13 @@
 function result = run_HTLR(...
-        n, dim, kernel_type, ad, r, tol, min_points, problem_result, ntest)
+        n, dim, kernel_type, kappa, ...
+        ad, r, tol, min_points, problem_result, ntest)
 % run_HTLR constructs and applies an HTLR approximation for one size.
 
 arguments (Input)
     n (1, 1) double;
     dim (1, 1) double;
     kernel_type (1, 1) string;
+    kappa (1, 1) double;
     ad (1, 1) string;
     r (1, 1) double;
     tol (1, 1) double;
@@ -21,7 +23,7 @@ end
 fprintf("current n: %d\n", n);
 
 N = n^dim;
-[a_fun, k_fun] = ExperimentKernel(n, dim, kernel_type);
+[a_fun, k_fun] = ExperimentKernel(n, dim, kernel_type, kappa);
 B = ExperimentBox(n, dim);
 
 if dim == 2

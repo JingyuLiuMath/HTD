@@ -13,7 +13,8 @@ for i = 1 : num_n
     load(problem_file);
 
     result = run_HTLR(...
-        n, dim, kernel, ad, r, tol, min_points, result, ntest);
+        n, dim, kernel, kappa, ...
+        ad, r, tol, min_points, result, ntest);
 
     file_name = "./data/htlr/" + string(n) + "_r_" + string(r) + ".mat";
     save(file_name, "result", '-v7.3');
