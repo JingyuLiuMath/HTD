@@ -1,25 +1,20 @@
-clear;
 close all;
+clear;
+rng(1);
 
-global_size = 128;
-h = 1 / global_size;
-n = 32;
+exp_LR2D_Settings;
 
 I1_x = Interval(global_size, 1, n);
 I2_x = Interval(global_size, 1, n);
 B_x = Box2D(I1_x, I2_x);
 x_points = B_x.Points();
 
-I1_y = Interval(global_size, 2 * n + 1, 3 * n);
+I1_y = Interval(global_size, n + 1, 2 * n);
 I2_y = Interval(global_size, 1, n);
 B_y = Box2D(I1_y, I2_y);
 y_points = B_y.Points();
 
-k_fun = @(xx, yy) SLP2D(xx, yy, 0);
-
-r_list = 1 : 16;
-num_r = length(r_list);
-
+k_fun = @(xx, yy) Helm2D(xx, yy, kappa, 0);
 A = k_fun(x_points, y_points);
 
 [U_svd, S_svd, V_svd] = svd(A);
@@ -28,6 +23,6 @@ for it_r = 1 : num_r
     r = r_list(it_r);
     result = run_LR2D(A, U_svd, S_svd, V_svd, B_x, B_y, k_fun, r);
 
-    file_name = "./data/WS_SLP/LR_" + string(r) + ".mat";
+    file_name = "./data/NBR_Helm/LR_" + string(r) + ".mat";
     save(file_name, "result");
 end

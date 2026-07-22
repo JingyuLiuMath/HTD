@@ -1,40 +1,41 @@
-%% Setting.
 clear;
 close all;
+rng(1);
+
+exp_H2DSQ_Settings;
 
 fprintf("H2DSQ HMultV\n");
 
-n_list = [64, 128, 256, 512];
-num_n = length(n_list);
-
-rho_list = [2, 3, 4];
-num_rho = length(rho_list);
-
-n_leaf = 16;
-r = 8;
-tol = 1e-10;
-ad = "strong";
-min_points = n_leaf^2;
-%% Loop.
 for i = 1 : num_n
     n_qu = n_list(i);
     fprintf("current n_qu: %d\n", n_qu);
 
-    mmv_file = "./data/mmv/" + string(n_qu) + ".mat";
-    mmv = load(mmv_file);
+    problem_file = "./data/problem/" + string(n_qu) + ".mat";
+    problem_data = load(problem_file);
+    if isfield(problem_data, "result")
+        problem = problem_data.result;
+    else
+        problem = problem_data;
+    end
 
     for j = 1 : num_rho
         rho = rho_list(j);
 
         intermatrix_file = "./data/intermatrix/" ...
             + string(n_qu) + "_" + string(rho) + ".mat";
-        intermatrix = load(intermatrix_file);
+        intermatrix_data = load(intermatrix_file);
+        if isfield(intermatrix_data, "result")
+            intermatrix = intermatrix_data.result;
+        else
+            intermatrix = intermatrix_data;
+        end
 
-        result = run_H2QHMultV(...
-            n_qu, rho, "SLP", ad, r, tol, min_points, mmv, intermatrix);
+        result = run_HQHMultV(...
+            n_qu, rho, kernel, kappa, ad, r, tol, min_points, ...
+            problem, intermatrix, ntest);
 
         file_name = "./data/hmv/" ...
             + string(n_qu) + "_" + string(rho) + ".mat";
-        save(file_name, "-struct", "result");
+        save(file_name, "result", "-v7.3");
     end
 end

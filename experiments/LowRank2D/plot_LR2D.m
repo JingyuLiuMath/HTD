@@ -23,10 +23,13 @@ for it_ad = 1 : num_ad
             r = r_list(it_r);
             file_name = "./data/" + ad + "_" + ker ...
                 + "/LR_" + string(r) + ".mat";
-            load(file_name);
-            svd_err_list(it_r) = svd_err;
-            inter_err_list(it_r) = inter_err;
-            tsvd_err_list(it_r) = tsvd_err;
+            data = load(file_name);
+            if isfield(data, "result")
+                data = data.result;
+            end
+            svd_err_list(it_r) = data.svd_err;
+            inter_err_list(it_r) = data.inter_err;
+            tsvd_err_list(it_r) = data.tsvd_err;
         end
 
         figure();

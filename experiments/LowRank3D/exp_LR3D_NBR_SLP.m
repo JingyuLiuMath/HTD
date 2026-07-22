@@ -31,5 +31,5 @@ for it_r = 1 : num_r
     result = run_LR3D(A, U_svd, S_svd, V_svd, B_x, B_y, k_fun, r);
 
     file_name = "./data/NBR_SLP/LR_" + string(r) + ".mat";
-    save(file_name, "-struct", "result");
+    save(file_name, "result");
 end

@@ -13,7 +13,7 @@ end
 switch admissibility
     case "strong"
         % Strong admissible.
-        ret = max(Diameter(B1), Diameter(B2)) <= sqrt(3) * Distance(B1, B2);
+        ret = (sqrt(3) * Distance(B1, B2) >= max(Diameter(B1), Diameter(B2)));
     case "weak"
         % Weak admissible.
         ret = ~(B1 == B2);

@@ -1,32 +1,25 @@
-%% Setting.
 clear;
 close all;
 
+exp_H2DSQ_Settings;
+
 fprintf("H2DSQ Plot\n");
 
-n_list = [64, 128, 256, 512];
-num_n = length(n_list);
 N_list = 2 * n_list.^2;
 
-rho_list = [2, 3, 4];
-num_rho = length(rho_list);
-
 err_list = zeros(num_n, num_rho);
-
-n_leaf = 16;
-r = 8;
-ad = "weak";
-min_points = n_leaf^2;
-%% Loop.
 for i = 1 : num_n
     n_qu = n_list(i);
     for j = 1 : num_rho
         rho = rho_list(j);
         file_name = "./data/hmv/" ...
             + string(n_qu) + "_" + string(rho) + ".mat";
-        load(file_name);
+        data = load(file_name);
+        if isfield(data, "result")
+            data = data.result;
+        end
 
-        err_list(i, j) = rel_err;
+        err_list(i, j) = data.rel_err;
     end
 end
 
