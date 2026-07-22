@@ -14,7 +14,7 @@ I2_y = Interval(global_size, 1, n);
 B_y = Box2D(I1_y, I2_y);
 y_points = B_y.Points();
 
-k_fun = @(xx, yy) Helm2D(xx, yy, kappa, 0);
+k_fun = @(xx, yy) Helm2D(xx, yy, kappa, helm_sval);
 A = k_fun(x_points, y_points);
 
 [U_svd, S_svd, V_svd] = svd(A);

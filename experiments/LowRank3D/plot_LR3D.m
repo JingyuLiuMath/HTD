@@ -1,6 +1,6 @@
 clear;
 close all;
-rng(1);
+exp_LR3D_Settings;
 
 ad_list = ["NBR", "WS"];
 num_ad = length(ad_list);
@@ -8,8 +8,6 @@ num_ad = length(ad_list);
 ker_list = ["Gaussian", "SLP", "Helm"];
 num_ker = length(ker_list);
 
-r_list = 1 : 8;
-num_r = length(r_list);
 for it_ad = 1 : num_ad
     for it_ker = 1 : num_ker
         ad = ad_list(it_ad);
@@ -36,11 +34,7 @@ for it_ad = 1 : num_ad
         semilogy(r_list, inter_err_list, ...
             "Marker", "o", ...
             "LineWidth", 2, "MarkerSize", 20, ...
-<<<<<<< HEAD
-            "DisplayName", "INTERP");
-=======
             "DisplayName", "INTER");
->>>>>>> 146ceba37a017223b75d23ed9a9dc4c19d582605
         hold on;
         semilogy(r_list, svd_err_list, ...
             "Marker", "s", ...
@@ -49,11 +43,7 @@ for it_ad = 1 : num_ad
         semilogy(r_list, tsvd_err_list, ...
             "Marker", "d", ...
             "LineWidth", 2, "MarkerSize", 20, ...
-<<<<<<< HEAD
-            "DisplayName", "STHOSVD");
-=======
             "DisplayName", "TENSOR-SVD");
->>>>>>> 146ceba37a017223b75d23ed9a9dc4c19d582605
         hold off;
         if ad == "NBR" && ker == "Gaussian"
             legend("Location", "northeast");

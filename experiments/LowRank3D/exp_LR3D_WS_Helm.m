@@ -1,5 +1,7 @@
 close all;
 clear;
+rng(1);
+
 exp_LR3D_Settings;
 
 I1_x = Interval(global_size, 1, n);
@@ -14,8 +16,7 @@ I3_y = Interval(global_size, 1, n);
 B_y = Box3D(I1_y, I2_y, I3_y);
 y_points = B_y.Points();
 
-k_fun = @(xx, yy) SLP3D(xx, yy, slp_sval);
-
+k_fun = @(xx, yy) Helm3D(xx, yy, kappa, helm_sval);
 A = k_fun(x_points, y_points);
 
 [U_svd, S_svd, V_svd] = svd(A);
@@ -24,6 +25,6 @@ for it_r = 1 : num_r
     r = r_list(it_r);
     result = run_LR3D(A, U_svd, S_svd, V_svd, B_x, B_y, k_fun, r);
 
-    file_name = "./data/WS_SLP/LR_" + string(r) + ".mat";
+    file_name = "./data/WS_Helm/LR_" + string(r) + ".mat";
     save(file_name, "result");
 end

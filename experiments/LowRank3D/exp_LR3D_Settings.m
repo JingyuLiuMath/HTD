@@ -3,16 +3,16 @@ clear;
 rng_seed = 1;
 rng(rng_seed);
 
-fprintf("LR2D Settings\n");
+fprintf("LR3D Settings\n");
 
-global_size = 128;
-n = 32;
+global_size = 64;
+n = 16;
 kappa = 8;
-gaussian_sigma = sqrt(2);
+gaussian_sigma = sqrt(3);
 slp_sval = 0;
 helm_sval = 0;
 
-r_list = 1 : 16;
+r_list = 1 : 8;
 num_r = length(r_list);
 
 fprintf("rng_seed: %d\n", rng_seed);

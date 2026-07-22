@@ -1,9 +1,6 @@
-clear;
 close all;
-
-global_size = 64;
-h = 1 / global_size;
-n = 16;
+clear;
+exp_LR3D_Settings;
 
 I1_x = Interval(global_size, 1, n);
 I2_x = Interval(global_size, 1, n);
@@ -17,10 +14,7 @@ I3_y = Interval(global_size, 1, n);
 B_y = Box3D(I1_y, I2_y, I3_y);
 y_points = B_y.Points();
 
-k_fun = @(xx, yy) Gaussian(xx, yy, sqrt(3));
-
-r_list = 1 : 8;
-num_r = length(r_list);
+k_fun = @(xx, yy) Gaussian(xx, yy, gaussian_sigma);
 
 A = k_fun(x_points, y_points);
 

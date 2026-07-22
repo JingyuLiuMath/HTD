@@ -1,9 +1,6 @@
-clear;
 close all;
-
-global_size = 128;
-h = 1 / global_size;
-n = 32;
+clear;
+exp_LR2D_Settings;
 
 I1_x = Interval(global_size, 1, n);
 I2_x = Interval(global_size, 1, n);
@@ -15,10 +12,7 @@ I2_y = Interval(global_size, 1, n);
 B_y = Box2D(I1_y, I2_y);
 y_points = B_y.Points();
 
-k_fun = @(xx, yy) Gaussian(xx, yy, sqrt(2));
-
-r_list = 1 : 16;
-num_r = length(r_list);
+k_fun = @(xx, yy) Gaussian(xx, yy, gaussian_sigma);
 
 A = k_fun(x_points, y_points);
 
