@@ -4,8 +4,6 @@
 #SBATCH --output=H2DW_PROBLEM_%j.out
 #SBATCH --error=H2DW_PROBLEM_%j.err
 #SBATCH --nodelist=bigMem0
-#SBATCH --exclusive
-#SBATCH --time=18:00:00
 
 
 module unload MATLAB
