@@ -1,0 +1,13 @@
+#!/bin/bash
+
+#SBATCH --job-name=H2DW_HTLR
+#SBATCH --output=H2DW_HTLR_%j.out
+#SBATCH --error=H2DW_HTLR_%j.err
+#SBATCH --nodelist=bigMem0
+#SBATCH --time=18:00:00
+#SBATCH --exclusive
+
+
+module unload MATLAB
+module load MATLAB/R2023b
+matlab -r 'cd /home/jyliu/HTLR; htlr_startup; cd /home/jyliu/HTLR/experiments/H2DW; exp_H2DW_HTLR;'
