@@ -50,6 +50,9 @@ fprintf("hmat_mem: %.1e\n", hmat_mem);
 
 tensor_size = [n * ones(1, dim), problem.num_rhs];
 u_ten = reshape(problem.u_ex, tensor_size);
+% Warm up the recursive tensor matrix-vector product before measuring it.
+% This makes its timing directly comparable with the HMAT timing.
+f_ten = H.HMultV(u_ten);
 hmultv_time_start = tic;
 for it = 1 : ntest
     f_ten = H.HMultV(u_ten);

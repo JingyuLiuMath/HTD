@@ -11,11 +11,9 @@ classdef HTLR3D < handle
         ch_ (2, 2, 2, 2, 2, 2) cell;
 
         % Matrix.
-        rsize_ double;  % row.
         r1size_ double;
         r2size_ double;
         r3size_ double;
-        csize_ double;  % col.
         c1size_ double;
         c2size_ double;
         c3size_ double;

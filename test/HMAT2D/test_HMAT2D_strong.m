@@ -9,6 +9,8 @@ n_leaf = 16;
 r = 8;
 tol = 1e-10;
 ad = "strong";
+kappa = 10;
+ntest = 3;
 % -------------------------------------------------------------------------
 
 
@@ -18,8 +20,8 @@ N = n^2;
 min_points = n_leaf^2;
 h = 1 / n;
 a_fun = @(xx) zeros(size(xx, 1), 1);
-sval = SLP2DSelfValue(h);
-k_fun = @(xx, yy) SLP2D(xx, yy, sval);
+sval = Helm2DSelfValue(h, kappa);
+k_fun = @(xx, yy) Helm2D(xx, yy, kappa, sval);
 % -------------------------------------------------------------------------
 
 
@@ -71,9 +73,12 @@ mmultv_time = toc(mmultv_time);
 fprintf("mmultv_time: %e\n", mmultv_time);
 
 u = u_ex(q, :);
-hmultv_time = tic;
 f = H.HMultV(u);
-hmultv_time = toc(hmultv_time);
+hmultv_time = tic;
+for it = 1 : ntest
+    f = H.HMultV(u);
+end
+hmultv_time = toc(hmultv_time) / ntest;
 f = f(p, :);
 fprintf("hmultv_time: %e\n", hmultv_time);
 

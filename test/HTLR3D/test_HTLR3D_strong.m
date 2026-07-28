@@ -9,6 +9,7 @@ n_leaf = 4;
 r_or_tol = 2;
 tol = 1e-10;
 ad = "strong";
+ntest = 3;
 % -------------------------------------------------------------------------
 
 
@@ -73,9 +74,12 @@ mmultv_time = toc(mmultv_time);
 fprintf("mmultv_time: %e\n", mmultv_time);
 
 u_ten = reshape(u_ex, [n, n, n, num_rhs]);
-hmultv_time = tic;
 f_ten = H.HMultV(u_ten);
-hmultv_time = toc(hmultv_time);
+hmultv_time = tic;
+for it = 1 : ntest
+    f_ten = H.HMultV(u_ten);
+end
+hmultv_time = toc(hmultv_time) / ntest;
 f = reshape(f_ten, N, num_rhs);
 fprintf("hmultv_time: %e\n", hmultv_time);
 

@@ -9,6 +9,7 @@ n_leaf = 16;
 r = 8;
 tol = 1e-10;
 ad = "weak";
+ntest = 3;
 % -------------------------------------------------------------------------
 
 
@@ -70,9 +71,12 @@ mmultv_time = toc(mmultv_time);
 fprintf("mmultv_time: %e\n", mmultv_time);
 
 u = u_ex(q, :);
-hmultv_time = tic;
 f = H.HMultV(u);
-hmultv_time = toc(hmultv_time);
+hmultv_time = tic;
+for it = 1 : ntest
+    f = H.HMultV(u);
+end
+hmultv_time = toc(hmultv_time) / ntest;
 f = f(p, :);
 fprintf("hmultv_time: %e\n", hmultv_time);
 

@@ -12,7 +12,7 @@ if ispc
     n_leaf = 4;
     r = 4;
 elseif isunix
-    n_list = [32, 64, 128, 256, 512];
+    n_list = [32, 64, 128, 256, 512, 1024];
     nsample = 256;
 
     n_leaf = 4;

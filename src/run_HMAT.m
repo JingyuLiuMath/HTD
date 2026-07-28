@@ -48,6 +48,9 @@ hmat_mem = byte_to_gb(H.Storage());
 fprintf("hmat_mem: %.1e\n", hmat_mem);
 
 u = problem.u_ex(q, :);
+% Warm up the recursive matrix-vector product before measuring it.  This
+% excludes one-time JIT compilation and function-loading overhead.
+f = H.HMultV(u);
 hmultv_time_start = tic;
 for it = 1 : ntest
     f = H.HMultV(u);
