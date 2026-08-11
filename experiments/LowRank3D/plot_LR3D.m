@@ -34,7 +34,7 @@ for it_ad = 1 : num_ad
         semilogy(r_list, inter_err_list, ...
             "Marker", "o", ...
             "LineWidth", 2, "MarkerSize", 20, ...
-            "DisplayName", "INTER");
+            "DisplayName", "INTERP");
         hold on;
         semilogy(r_list, svd_err_list, ...
             "Marker", "s", ...
@@ -43,17 +43,21 @@ for it_ad = 1 : num_ad
         semilogy(r_list, tsvd_err_list, ...
             "Marker", "d", ...
             "LineWidth", 2, "MarkerSize", 20, ...
-            "DisplayName", "TENSOR-SVD");
+            "DisplayName", "STHOSVD");
         hold off;
-        if ad == "NBR" && ker == "Gaussian"
+        if ad == "NBR" && (ker == "Helm" || ker == "SLP")
+            legend("Location", "southwest");
+        else
             legend("Location", "northeast");
-            ylabel("relative error");
         end
+        ylabel("relative error");
         xlabel("p");
         xlim([r_list(1), r_list(end)]);
         ylim([1e-15, 1e1]);
         set(gca, 'FontSize', 22);
-        figure_name = "./figure/" + ad + "_" + ker + "_3D.eps";
-        saveas(gcf, figure_name, "epsc");
+        figure_name = "./figure/" + ad + "_" + ker + "_3D";
+        saveas(gcf, figure_name + ".png", "png");
+        exportgraphics(gcf, figure_name + ".pdf", ...
+            "ContentType", "vector");
     end
 end

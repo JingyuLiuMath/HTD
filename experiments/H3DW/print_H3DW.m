@@ -1,9 +1,9 @@
 clear;
 close all;
 
-fprintf("H3DW Plot\n");
+fprintf("H3DW Table\n");
 
-hmat_n_list = [32, 64, 128, 256];
+hmat_n_list = [32, 64, 128, 256, 512];
 num_hmat_n = length(hmat_n_list);
 hmat_N_list = hmat_n_list.^3;
 
@@ -67,33 +67,62 @@ for it_n = 1 : num_htlr_n
     end
 end
 
-hmat_hmem_list = hmat_hmem_list / 1024^3 * 8;
-htlr_hmem_list = htlr_hmem_list / 1024^3 * 8;
-
 fprintf("\n\n");
+fprintf("\\begin{table}[htbp]\n");
+fprintf("    \\centering\n");
+fprintf("    \\begin{tabular}{cccccc}\n");
+fprintf("        \\toprule\n");
+fprintf("        \\(N\\) & ");
+fprintf("& \\(t_{\\construct}\\) (s) ");
+fprintf("& \\(m_{\\h}\\) (GB) ");
+fprintf("& \\(t_{\\apply}\\) (s) ");
+fprintf("& \\(e_{\\apply; \\rand}\\) \\\\ \n");
+fprintf("        \\midrule\n");
+
 for it_n = 1 : num_htlr_n
     n = htlr_n_list(it_n);
-    fprintf("\\(%d^3\\) ", n);
-    fprintf("& %d ", r);
-    fprintf("& %.1e ", htlr_construct_time_list(it_n));
-    if it_n <= num_hmat_n
-        fprintf("& \\(%.1f  \\times\\) ", hmat_construct_time_list(it_n) / htlr_construct_time_list(it_n));
+    it_hmat = find(hmat_n_list == n, 1);
+
+    fprintf("        \\multirow{3}{*}{\\(%d^3\\)} ", n);
+    if ~isempty(it_hmat)
+        fprintf("& $\\mathcal{H}$-matrix ");
+        fprintf("& %.1e ", hmat_construct_time_list(it_hmat));
+        fprintf("& %.1e ", hmat_hmem_list(it_hmat));
+        fprintf("& %.1e ", hmat_hmultv_time_list(it_hmat));
+        fprintf("& %.1e ", hmat_hmulv_rand_err_list(it_hmat));
+        fprintf("\\\\ \n");
+
+        fprintf("        & HTD ");
+        fprintf("& %.1e ", htlr_construct_time_list(it_n));
+        fprintf("& %.1e ", htlr_hmem_list(it_n));
+        fprintf("& %.1e ", htlr_hmultv_time_list(it_n));
+        fprintf("& %.1e ", htlr_hmulv_rand_err_list(it_n));
+        fprintf("\\\\ \n");
+
+        fprintf("        & Ratio ");
+        fprintf("& \\(%.1f \\times\\) ", ...
+            hmat_construct_time_list(it_hmat) / htlr_construct_time_list(it_n));
+        fprintf("& \\(%.1f \\times\\) ", ...
+            hmat_hmem_list(it_hmat) / htlr_hmem_list(it_n));
+        fprintf("& \\(%.1f \\times\\) ", ...
+            hmat_hmultv_time_list(it_hmat) / htlr_hmultv_time_list(it_n));
+        fprintf("& - \\\\ \n");
     else
-        fprintf("& - ");
+        fprintf("& $\\mathcal{H}$-matrix & - & - & - & - \\\\ \n");
+        fprintf("        & HTD ");
+        fprintf("& %.1e ", htlr_construct_time_list(it_n));
+        fprintf("& %.1e ", htlr_hmem_list(it_n));
+        fprintf("& %.1e ", htlr_hmultv_time_list(it_n));
+        fprintf("& %.1e ", htlr_hmulv_rand_err_list(it_n));
+        fprintf("\\\\ \n");
+        fprintf("        & Ratio & - & - & - & - \\\\ \n");
     end
-    fprintf("& %.1e ", htlr_hmem_list(it_n));
-    if it_n <= num_hmat_n
-        fprintf("& \\(%.1f  \\times\\) ", hmat_hmem_list(it_n) / htlr_hmem_list(it_n));
-    else
-        fprintf("& - ");
+    if it_n < num_htlr_n
+        fprintf("        \\midrule\n");
     end
-    % if htlr_hmulv_err_list(it_n) ~= 0
-    %     fprintf("& %.1e ", htlr_hmulv_err_list(it_n));
-    % else
-    %     fprintf("& - ");
-    % end
-    fprintf("& %.1e ", htlr_hmulv_rand_err_list(it_n));
-    fprintf("\\\\ \n ");
-    fprintf("\\midrule \n");
 end
-fprintf("\n\n");
+fprintf("        \\bottomrule\n");
+fprintf("    \\end{tabular}\n");
+fprintf("    \\caption{Numerical results of $\\mathcal{H}$-matrices and HTD for the Gaussian kernel\n");
+fprintf("    under weak admissibility in \\(3\\)D.} \\label{tab:H3DW}\n");
+fprintf("\\end{table}\n\n");

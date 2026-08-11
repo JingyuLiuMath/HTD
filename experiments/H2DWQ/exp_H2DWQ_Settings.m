@@ -3,44 +3,39 @@ clear;
 rng_seed = 1;
 rng(rng_seed);
 
-fprintf("H2DS Settings\n");
+fprintf("H2DWQ Settings\n");
 
 if ispc
-    n_list = [32, 64, 128];
+    n_list = [16, 32];
     nsample = 100;
-
-    n_leaf = 8;
-    r = 10;
 elseif isunix
-    % n_list = [256, 512, 1024, 2048, 4096, 8192];
-    n_list = [256];
+    n_list = [64, 128, 256, 512];
     nsample = 256;
-
-    n_leaf = 16;
-    r = 8;
 end
 num_n = length(n_list);
-n_sample_threshold = n_list(1) / 2;
 
-dim = 2;
-kernel = "Helm";
-kappa = 10;
-num_rhs = 10;
+rho_list = [2, 3, 4];
+num_rho = length(rho_list);
+
+kernel = "Gaussian";
+kappa = 0;
+block_size = 65536;
+n_leaf = 16;
+r = 8;
+tol = 1e-10;
+ad = "weak";
 min_points = n_leaf^2;
-ad = "strong";
-tol = 1e-3;
-
 ntest = 3;
 
 fprintf("rng_seed: %d\n", rng_seed);
 fprintf("n_list: %s\n", mat2str(n_list));
 fprintf("num_n: %d\n", num_n);
-fprintf("dim: %d\n", dim);
+fprintf("rho_list: %s\n", mat2str(rho_list));
+fprintf("num_rho: %d\n", num_rho);
 fprintf("kernel: %s\n", kernel);
 fprintf("kappa: %.1e\n", kappa);
 fprintf("nsample: %d\n", nsample);
-fprintf("n_sample_threshold: %d\n", n_sample_threshold);
-fprintf("num_rhs: %d\n", num_rhs);
+fprintf("block_size: %d\n", block_size);
 fprintf("n_leaf: %d\n", n_leaf);
 fprintf("min_points: %d\n", min_points);
 fprintf("ad: %s\n", ad);

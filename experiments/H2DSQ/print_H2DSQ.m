@@ -4,6 +4,8 @@ close all;
 exp_H2DSQ_Settings;
 
 fprintf("H2DSQ Print\n");
+fprintf("Note: uni-to-qu and apply times use sampled outputs only (nsample = %d).\n", ...
+    nsample);
 
 problem_time_list = nan(num_n, 1);
 mmultv_time_list = nan(num_n, 1);

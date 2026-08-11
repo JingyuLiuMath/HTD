@@ -29,7 +29,7 @@ rand_rind = randperm(N_qu, nsample).';
 x_qu_sampled = x_qu(rand_rind, :);
 
 u_fun = @(x1, x2) 1 + 0.5 * exp(...
-    -(x1 - 0.3).^2 - (x2 - 0.6).^2 + sin(5 .* x1 .* x2));
+    -(x1 - 0.3).^2 - (x2 - 0.6).^2) + sin(5 .* x1 .* x2);
 u_qu = u_fun(x_qu(:, 1), x_qu(:, 2));
 
 [a_fun, k_fun] = ExperimentKernel(n_qu, 2, kernel_type, kappa);

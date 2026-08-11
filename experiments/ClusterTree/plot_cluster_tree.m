@@ -18,4 +18,7 @@ T = ClusterTree2D(B);
 T.BuildTree(min_points);
 
 T.PlotTree();
-saveas(gcf, "./figure/leaf_cluster_tree.eps", "epsc");
+set(gcf, "Color", "w");
+saveas(gcf, "./figure/leaf_cluster_tree.png", "png");
+exportgraphics(gcf, "./figure/leaf_cluster_tree.pdf", ...
+    "ContentType", "vector");
