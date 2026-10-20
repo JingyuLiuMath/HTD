@@ -92,7 +92,7 @@ for it_n = 1 : num_htlr_n
         fprintf("& %.1e ", hmat_hmulv_rand_err_list(it_hmat));
         fprintf("\\\\ \n");
 
-        fprintf("        & HTD ");
+        fprintf("        & HMTB ");
         fprintf("& %.1e ", htlr_construct_time_list(it_n));
         fprintf("& %.1e ", htlr_hmem_list(it_n));
         fprintf("& %.1e ", htlr_hmultv_time_list(it_n));
@@ -109,7 +109,7 @@ for it_n = 1 : num_htlr_n
         fprintf("& - \\\\ \n");
     else
         fprintf("& $\\mathcal{H}$-matrix & - & - & - & - \\\\ \n");
-        fprintf("        & HTD ");
+        fprintf("        & HMTB ");
         fprintf("& %.1e ", htlr_construct_time_list(it_n));
         fprintf("& %.1e ", htlr_hmem_list(it_n));
         fprintf("& %.1e ", htlr_hmultv_time_list(it_n));
@@ -123,6 +123,6 @@ for it_n = 1 : num_htlr_n
 end
 fprintf("        \\bottomrule\n");
 fprintf("    \\end{tabular}\n");
-fprintf("    \\caption{Numerical results of $\\mathcal{H}$-matrices and HTD for the Gaussian kernel\n");
+fprintf("    \\caption{Numerical results of $\\mathcal{H}$-matrices and HMTB for the Gaussian kernel\n");
 fprintf("    under weak admissibility in \\(3\\)D.} \\label{tab:H3DW}\n");
 fprintf("\\end{table}\n\n");
