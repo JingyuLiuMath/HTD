@@ -91,7 +91,7 @@ xlabel("$N$", "Interpreter", "latex");
 ylabel("$t_{\mathrm{c}}$ (s)", "Interpreter", "latex");
 xticks([10^5, 10^6, 10^7, 10^8]);
 xtickformat('%.0e');
-yticks([10^0, 10^1, 10^2, 10^3]);
+yticks([10^0, 10^1, 10^2, 10^3, 10^4]);
 ytickformat('%.0e');
 legend("Location", "southeast");
 set(gca, 'FontSize', 30);
