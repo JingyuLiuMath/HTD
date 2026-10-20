@@ -38,4 +38,5 @@ ylabel("$e_{\mathrm{a}}$", "Interpreter", "latex");
 legend("Location", "northeast");
 set(gca, 'FontSize', 30);
 saveas(gcf, "./figure/H2DWQ_err.png", "png");
-saveas(gcf, "./figure/H2DWQ_err.eps", "epsc");
+exportgraphics(gcf, "./figure/H2DWQ_err.pdf", ...
+    "ContentType", "vector");

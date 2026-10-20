@@ -15,7 +15,6 @@ fprintf("current n_uni: %d\n", rho * n_qu);
 
 N_qu = problem.N_qu;
 qu_grid = problem.qu_grid;
-x_qu = problem.x_qu;
 area_qu = problem.area_qu;
 
 n_uni = rho * n_qu;
@@ -38,9 +37,8 @@ quFuni = (1 ./ area_qu) .* quFuni;
 intermatrix_time = toc(intermatrix_time_start);
 
 x_uni = B.Points();
-u_fun = @(x1, x2) 1 + 0.5 * exp(...
-    -(x1 - 0.3).^2 - (x2 - 0.6).^2) + sin(5 .* x1 .* x2);
-u_qu = u_fun(x_qu(:, 1), x_qu(:, 2));
+u_fun = problem.u_fun;
+u_qu = problem.u_qu;
 u_uni = u_fun(x_uni(:, 1), x_uni(:, 2));
 f_qu_approx = quFuni * u_uni;
 f_uni_approx = uniFqu * u_qu;

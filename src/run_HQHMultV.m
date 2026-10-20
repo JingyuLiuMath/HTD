@@ -73,8 +73,8 @@ uni_to_qu_time = toc(uni_to_qu_time_start) / ntest;
 apply_time = qu_to_uni_time + hmultv_time + uni_to_qu_time;
 fprintf("qu-to-uni time: %.1e\n", qu_to_uni_time);
 fprintf("hmultv time: %.1e\n", hmultv_time);
-fprintf("uni-to-qu time: %.1e\n", uni_to_qu_time);
-fprintf("apply time: %.1e\n", apply_time);
+fprintf("sampled uni-to-qu time: %.1e\n", uni_to_qu_time);
+fprintf("sampled-output apply time: %.1e\n", apply_time);
 
 df_qu = f_qu_approx - f_qu_reference;
 rand_err = norm(df_qu) / norm(f_qu_reference);
